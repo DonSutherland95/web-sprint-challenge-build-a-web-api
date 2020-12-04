@@ -43,14 +43,16 @@ router.get('/:id', (req, res)=>{
 router.post('/', (req, res)=>{
     if(!req.body.project_id || !req.body.description || !req.body.notes){
         res.status(400).json({message: `Please fill out all the fields`})
-    }
-    Actions.insert(req.body)
+    } else{
+        Actions.insert(req.body)
         .then(action=>{
             res.status(201).json(action)
         })
         .catch(error=>{
             res.status(500).json({errorMessage: error.message})
         })
+    }
+    
     
 })
 
@@ -59,15 +61,17 @@ router.put('/:id', (req, res)=>{
     const changes = req.body
     if(!req.body.project_id || !req.body.description || !req.body.notes){
         res.status(400).json({message: `Please fill out all the fields`})
-    }
-
-    Actions.update(id, changes)
+    }else{
+         Actions.update(id, changes)
         .then(action=>{
             res.status(200).json(action)
         })
         .catch(error=>{
             res.status(500).json({errorMessage: error.message})
         })
+    }
+
+   
 })
 
 router.delete('/:id', (req, res)=>{
