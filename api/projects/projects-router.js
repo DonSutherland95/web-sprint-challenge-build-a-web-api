@@ -47,6 +47,9 @@ router.post('/', (req, res)=>{
 router.put('/:id', (req,res)=>{
     const {id} = req.params
     const changes = req.body
+    if(!req.body.name || !req.body.description){
+        res.status(400).json({message: `Please fill out all the fields`})
+    }
 
     Projects.update(id, changes)
         .then(project=>{
